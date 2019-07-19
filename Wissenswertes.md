@@ -9,7 +9,7 @@ Hier sammeln wir vorerst unser neu erlerntes Wissen über Elektronik.
 Anlternative Bezeichnungen / Anzuschließen an:
 
 * Anode
-* +
+* `+`
 * Rot
 * LED Seite vom Dreieck
 * LED Langes Bein
@@ -17,7 +17,7 @@ Anlternative Bezeichnungen / Anzuschließen an:
 ### Minuspol
 
 * Kathode
-* -
+* `-`
 * GND
 * LED Spitze vom Dreieck
 * LED Kurzes Bein
