@@ -1,6 +1,6 @@
 {
     "terminal.integrated.env.osx": {
-        "PATH": "/Users/fabianfrey/.platformio/penv/bin:/Users/fabianfrey/.platformio/penv:/Users/fabianfrey/.nvm/versions/node/v9.11.2/bin:/Users/fabianfrey/gems/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/bin",
+        "PATH": "/Users/michael/.platformio/penv/bin:/Users/michael/.platformio/penv:/Users/michael/.rvm/gems/ruby-2.4.1/bin:/Users/michael/.rvm/gems/ruby-2.4.1@global/bin:/Users/michael/.rvm/rubies/ruby-2.4.1/bin:/Users/michael/.nvm/versions/node/v8.12.0/bin:/Users/michael/.fastlane/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/michael/Library/Android/sdk/tools:/Users/michael/Library/Android/sdk/platform-tools:/Applications/google-cloud-sdk/bin:/Users/michael/gocode/bin:/Users/michael/.rvm/bin:/usr/local/Cellar/ffmpeg/4.1/bin",
         "PLATFORMIO_CALLER": "vscode"
     }
 }
