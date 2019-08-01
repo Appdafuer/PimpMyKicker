@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.osx": {
+        "PATH": "/Users/fabianfrey/.platformio/penv/bin:/Users/fabianfrey/.platformio/penv:/Users/fabianfrey/.nvm/versions/node/v9.11.2/bin:/Users/fabianfrey/gems/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Mac",
+            "macFrameworkPath": [],
+            "includePath": [
+                "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/include",
+                "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/src",
+                "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/.pio/libdeps/megaatmega2560/MFRC522/src",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/cores/arduino",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/variants/mega",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                "/Users/fabianfrey/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
+                "path": [
+                    "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/include",
+                    "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/src",
+                    "/Users/fabianfrey/Documents/PlatformIO/Projects/PimpMyNFC/.pio/libdeps/megaatmega2560/MFRC522/src",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SPI/src",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/cores/arduino",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/variants/mega",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/EEPROM/src",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/HID/src",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/SoftwareSerial/src",
+                    "/Users/fabianfrey/.platformio/packages/framework-arduinoavr/libraries/__cores__/arduino/Wire/src",
+                    "/Users/fabianfrey/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40001",
+                "ARDUINO_AVR_MEGA2560",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10805",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "\"/Users/fabianfrey/.platformio/packages/toolchain-atmelavr/bin/avr-gcc\" -mmcu=atmega2560"
+        }
+    ],
+    "version": 4
+}
