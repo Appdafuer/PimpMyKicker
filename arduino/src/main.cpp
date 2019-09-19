@@ -29,7 +29,12 @@
 */
 
 #include <SPI.h>
-#include <MFRC522.h>
+#include "InputState.h"
+#include "GameState.h"
+#include "GameManager.h"
+#include "NFCComponent.h"
+
+#define LOGGING true
 
 // PIN Numbers : RESET + SDAs
 #define RST_PIN 49
@@ -38,131 +43,53 @@
 #define SS_3_PIN 46
 #define SS_4_PIN 40
 
-// Led and Relay PINS
-#define GreenLed 2
-#define relayIN 3
-#define RedLed 4
-
-// List of Tags UIDs that are allowed to open the puzzle
-byte tagarray[][4] = {
-    {0x4B, 0x17, 0xBC, 0x79},
-    {0x8A, 0x2B, 0xBC, 0x79},
-    {0x81, 0x29, 0xBC, 0x79},
-    {0xE6, 0xDF, 0xBB, 0x79},
-};
-
-// Inlocking status :
-int tagcount = 0;
-bool access = false;
+#define STATUS_LED_NFC_1_PIN 9
+#define STATUS_LED_NFC_2_PIN 10
+#define STATUS_LED_NFC_3_PIN 11
+#define STATUS_LED_NFC_4_PIN 12
 
 #define NR_OF_READERS 4
 
 byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN, SS_4_PIN};
+byte statusLedPins[] = {STATUS_LED_NFC_1_PIN, STATUS_LED_NFC_2_PIN, STATUS_LED_NFC_3_PIN, STATUS_LED_NFC_4_PIN};
 
-// Create an MFRC522 instance :
-MFRC522 mfrc522[NR_OF_READERS];
+NFCComponent nfcComponents[NR_OF_READERS];
+InputState inputState;
+GameManager gameManager;
+GameState gameState;
 
-/**
-   Helper routine to dump a byte array as hex values to Serial.
-*/
-void dump_byte_array(byte *buffer, byte bufferSize)
+void setupInput()
 {
-  for (byte i = 0; i < bufferSize; i++)
+  inputState = InputState();
+  for (int i = 0; i < NR_OF_READERS; i++)
   {
-    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-    Serial.print(buffer[i], HEX);
+    nfcComponents[i] = NFCComponent();
+    nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
   }
 }
-
-void printTagcount()
+void setupLogic()
 {
-  Serial.print("Tag n°");
-  Serial.println(tagcount);
+  gameState = GameState();
+  gameManager = GameManager();
+  // still work in progress. when commented in it doesn't work!
+  //gameManager.setup(inputState, gameState);
 }
 
-void DenyingTag()
+void setupOutput()
 {
-  tagcount = tagcount;
-  access = false;
 }
 
-void AllowTag()
-{
-  tagcount = tagcount + 1;
-  access = true;
-}
-
-void Initialize()
-{
-  tagcount = 0;
-  access = false;
-}
-
-void OpenDoor()
-{
-  Serial.println("Welcome! the door is now open");
-  Initialize();
-  digitalWrite(relayIN, LOW);
-  digitalWrite(GreenLed, HIGH);
-  delay(2000);
-  digitalWrite(relayIN, HIGH);
-  delay(500);
-  digitalWrite(GreenLed, LOW);
-}
-
-void MoreTagsNeeded()
-{
-  printTagcount();
-  Serial.println("System needs more cards");
-  digitalWrite(RedLed, HIGH);
-  delay(1000);
-  digitalWrite(RedLed, LOW);
-  access = false;
-}
-
-void UnknownTag()
-{
-  Serial.println("This Tag isn't allowed!");
-  printTagcount();
-  for (int flash = 0; flash < 5; flash++)
-  {
-    digitalWrite(RedLed, HIGH);
-    delay(100);
-    digitalWrite(RedLed, LOW);
-    delay(100);
-  }
-}
-
-/**
-   Initialize.
-*/
 void setup()
 {
-
   Serial.begin(9600); // Initialize serial communications with the PC
   while (!Serial)
     ; // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
 
   SPI.begin(); // Init SPI bus
 
-  /* Initializing Inputs and Outputs */
-  pinMode(GreenLed, OUTPUT);
-  digitalWrite(GreenLed, LOW);
-  pinMode(relayIN, OUTPUT);
-  digitalWrite(relayIN, HIGH);
-  pinMode(RedLed, OUTPUT);
-  digitalWrite(RedLed, LOW);
-
-  /* looking for MFRC522 readers */
-  for (uint8_t reader = 0; reader < NR_OF_READERS; reader++)
-  {
-    mfrc522[reader].PCD_Init(ssPins[reader], RST_PIN);
-    Serial.print(F("Reader "));
-    Serial.print(reader);
-    Serial.print(F(": "));
-    mfrc522[reader].PCD_DumpVersionToSerial();
-    mfrc522[reader].PCD_SetAntennaGain(mfrc522[reader].RxGain_max);
-  }
+  setupInput();
+  setupLogic();
+  setupOutput();
 }
 
 /*
@@ -171,68 +98,8 @@ void setup()
 
 void loop()
 {
-
-  for (uint8_t reader = 0; reader < NR_OF_READERS; reader++)
+  for (int i = 0; i < NR_OF_READERS; i++)
   {
-
-    // Looking for new cards
-    if (mfrc522[reader].PICC_IsNewCardPresent() && mfrc522[reader].PICC_ReadCardSerial())
-    {
-      Serial.print(F("Reader "));
-      Serial.print(reader);
-
-      // Show some details of the PICC (that is: the tag/card)
-      Serial.print(F(": Card UID:"));
-      dump_byte_array(mfrc522[reader].uid.uidByte, mfrc522[reader].uid.size);
-      Serial.println();
-
-      // for (int x = 0; x < sizeof(tagarray); x++) // tagarray's row
-      // {
-      //   for (int i = 0; i < mfrc522[reader].uid.size; i++) //tagarray's columns
-      //   {
-      //     if (mfrc522[reader].uid.uidByte[i] != tagarray[x][i]) //Comparing the UID in the buffer to the UID in the tag array.
-      //     {
-      //       DenyingTag();
-      //       break;
-      //     }
-      //     else
-      //     {
-      //       if (i == mfrc522[reader].uid.size - 1) // Test if we browesed the whole UID.
-      //       {
-      //         AllowTag();
-      //       }
-      //       else
-      //       {
-      //         continue; // We still didn't reach the last cell/column : continue testing!
-      //       }
-      //     }
-      //   }
-      //   if (access)
-      //     break; // If the Tag is allowed, quit the test.
-      // }
-
-      // if (access)
-      // {
-      //   if (tagcount == NR_OF_READERS)
-      //   {
-      //     OpenDoor();
-      //   }
-      //   else
-      //   {
-      //     MoreTagsNeeded();
-      //   }
-      // }
-      // else
-      // {
-      //   UnknownTag();
-      // }
-      /*Serial.print(F("PICC type: "));
-        MFRC522::PICC_Type piccType = mfrc522[reader].PICC_GetType(mfrc522[reader].uid.sak);
-        Serial.println(mfrc522[reader].PICC_GetTypeName(piccType));*/
-      // Halt PICC
-      mfrc522[reader].PICC_HaltA();
-      // Stop encryption on PCD
-      mfrc522[reader].PCD_StopCrypto1();
-    } //if (mfrc522[reader].PICC_IsNewC..
-  }   //for(uint8_t reader..
+    nfcComponents[i].update();
+  }
 }

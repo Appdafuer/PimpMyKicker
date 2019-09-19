@@ -1,0 +1,16 @@
+#include <SPI.h>
+
+#ifndef __INPUTSTATE_H_INCLUDED__
+#define __INPUTSTATE_H_INCLUDED__
+
+class InputState
+{
+
+public:
+    byte nfcId1[10];
+    byte nfcId2[10];
+    byte nfcId3[10];
+    byte nfcId4[10];
+};
+
+#endif
