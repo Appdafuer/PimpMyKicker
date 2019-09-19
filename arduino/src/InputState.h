@@ -7,6 +7,7 @@ class InputState
 {
 
 public:
+    // TODO: create array of ids
     byte nfcId1[10];
     byte nfcId2[10];
     byte nfcId3[10];

@@ -10,6 +10,9 @@ public:
     int goals1;
     int goals2;
     bool player1Available;
+    bool player2Available;
+    bool player3Available;
+    bool player4Available;
     GameState();
 };
 

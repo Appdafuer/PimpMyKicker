@@ -33,6 +33,7 @@
 #include "GameState.h"
 #include "GameManager.h"
 #include "NFCComponent.h"
+#include "StatusLED.h"
 
 #define LOGGING true
 
@@ -54,29 +55,30 @@ byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN, SS_4_PIN};
 byte statusLedPins[] = {STATUS_LED_NFC_1_PIN, STATUS_LED_NFC_2_PIN, STATUS_LED_NFC_3_PIN, STATUS_LED_NFC_4_PIN};
 
 NFCComponent nfcComponents[NR_OF_READERS];
+StatusLED statusLEDs[NR_OF_READERS];
 InputState inputState;
 GameManager gameManager;
 GameState gameState;
 
 void setupInput()
 {
-  inputState = InputState();
   for (int i = 0; i < NR_OF_READERS; i++)
   {
-    nfcComponents[i] = NFCComponent();
     nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
   }
 }
 void setupLogic()
 {
-  gameState = GameState();
-  gameManager = GameManager();
   // still work in progress. when commented in it doesn't work!
-  //gameManager.setup(inputState, gameState);
+  gameManager.setup(inputState, gameState);
 }
 
 void setupOutput()
 {
+  for (int i = 0; i < NR_OF_READERS; i++)
+  {
+    statusLEDs[i].setup(i, statusLedPins[i], gameState);
+  }
 }
 
 void setup()
@@ -92,14 +94,29 @@ void setup()
   setupOutput();
 }
 
-/*
-   Main loop.
-*/
-
-void loop()
+void updateInput()
 {
   for (int i = 0; i < NR_OF_READERS; i++)
   {
     nfcComponents[i].update();
   }
+}
+void updateLogic()
+{
+  gameManager.update();
+}
+
+void updateOutput()
+{
+  for (int i = 0; i < NR_OF_READERS; i++)
+  {
+    statusLEDs[i].update();
+  }
+}
+
+void loop()
+{
+  updateInput();
+  updateLogic();
+  updateOutput();
 }

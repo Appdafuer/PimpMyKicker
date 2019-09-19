@@ -60,6 +60,7 @@ void NFCComponent::update()
     }
     else
     {
+        // todo create inputState Array for nfc ids
         byte noAdress[10] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
         switch (readerNumber)
         {
