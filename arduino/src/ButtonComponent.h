@@ -9,11 +9,11 @@ class ButtonComponent
 public:
     ButtonComponent();
 
-    void setup(int buttonNumber, int pin, InputState inputState);
+    void setup(int buttonNumber, int pin, bool *pressed);
     void update();
 
 private:
-    InputState inputState;
+    bool *pressed;
     int buttonNumber;
     int pin;
     int buttonState;

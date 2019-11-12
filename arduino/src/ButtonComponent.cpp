@@ -9,11 +9,11 @@ ButtonComponent::ButtonComponent()
 {
 }
 
-void ButtonComponent::setup(int buttonNumber, int pin, InputState inputState)
+void ButtonComponent::setup(int buttonNumber, int pin, bool *pressed)
 {
     this->buttonNumber = buttonNumber;
     this->pin = pin;
-    this->inputState = inputState;
+    this->pressed = pressed;
     this->buttonState = HIGH;
     this->millisLastPressed = 0;
     pinMode(pin, INPUT_PULLUP);
@@ -36,12 +36,12 @@ void ButtonComponent::update()
             switch (this->buttonNumber)
             {
             case 0:
-                this->inputState.leftButtonPressed = true;
-                Serial.println("pressed button 1");        
+                *pressed = true;
+                // Serial.println("pressed button 1");        
                 
                 break;
             case 1:
-                this->inputState.rightButtonPressed = true;
+                // this->inputState.rightButtonPressed = true;
                 break;
             }
         }
@@ -54,20 +54,20 @@ void ButtonComponent::update()
         switch (this->buttonNumber)
         {
         case 0:
-            this->inputState.leftButtonPressed = false;
+            *pressed = false;
             break;
         case 1:
-            this->inputState.rightButtonPressed = false;
+            // this->inputState.rightButtonPressed = false;
             break;
         }
     } else {
         switch (this->buttonNumber)
         {
         case 0:
-            this->inputState.leftButtonPressed = false;
+            *pressed = false;
             break;
         case 1:
-            this->inputState.rightButtonPressed = false;
+            // this->inputState.rightButtonPressed = false;
             break;
         }
     }

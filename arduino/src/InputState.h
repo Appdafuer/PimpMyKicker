@@ -13,8 +13,8 @@ public:
     byte nfcId3[10];
     byte nfcId4[10];
 
-bool leftButtonPressed;
-bool rightButtonPressed;
+    bool leftButtonPressed;
+    bool rightButtonPressed;
 };
 
 #endif
