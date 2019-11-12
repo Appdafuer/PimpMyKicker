@@ -9,7 +9,7 @@ class ButtonComponent
 public:
     ButtonComponent();
 
-    void setup(int buttonNumber, int pin, bool *pressed);
+    void setup(int pin, bool *pressed);
     void update();
 
 private:

@@ -83,7 +83,7 @@ void setupInput()
   {
     // nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
   }
-  dashButtonComponent1.setup(0, DASH_BUTTON_1, &inputState.leftButtonPressed);
+  dashButtonComponent1.setup(DASH_BUTTON_1, &inputState.leftButtonPressed);
   // dashButtonComponent2.setup(1, DASH_BUTTON_2, inputState);
 
 }

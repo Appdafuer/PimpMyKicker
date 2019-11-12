@@ -9,15 +9,13 @@ ButtonComponent::ButtonComponent()
 {
 }
 
-void ButtonComponent::setup(int buttonNumber, int pin, bool *pressed)
+void ButtonComponent::setup(int pin, bool *pressed)
 {
-    this->buttonNumber = buttonNumber;
     this->pin = pin;
     this->pressed = pressed;
     this->buttonState = HIGH;
     this->millisLastPressed = 0;
     pinMode(pin, INPUT_PULLUP);
-
 }
 
 void ButtonComponent::update()
@@ -33,17 +31,7 @@ void ButtonComponent::update()
         if (duration > 50 && duration < 1000)
         {
             // von down nach up
-            switch (this->buttonNumber)
-            {
-            case 0:
-                *pressed = true;
-                // Serial.println("pressed button 1");        
-                
-                break;
-            case 1:
-                // this->inputState.rightButtonPressed = true;
-                break;
-            }
+            *pressed = true;
         }
     }
     else if (newState == LOW && this->buttonState == HIGH)
@@ -51,25 +39,9 @@ void ButtonComponent::update()
         // von nicht gedrückt zu gedrückt
         this->millisLastPressed = millis();
 
-        switch (this->buttonNumber)
-        {
-        case 0:
-            *pressed = false;
-            break;
-        case 1:
-            // this->inputState.rightButtonPressed = false;
-            break;
-        }
+        *pressed = false;
     } else {
-        switch (this->buttonNumber)
-        {
-        case 0:
-            *pressed = false;
-            break;
-        case 1:
-            // this->inputState.rightButtonPressed = false;
-            break;
-        }
+        *pressed = false;
     }
 
     this->buttonState = newState;
