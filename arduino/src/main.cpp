@@ -65,11 +65,11 @@ StatusLED statusLEDs[NR_OF_READERS];
 #define DASH_BUTTON_1 9
 #define LED_DASH_BUTTON_1 38
 
-#define DASH_BUTTON_2 37
+#define DASH_BUTTON_2 10
 #define LED_DASH_BUTTON_2 39
 
 ButtonComponent dashButtonComponent1;
-// ButtonComponent dashButtonComponent2;
+ButtonComponent dashButtonComponent2;
 
 // RUNLOOP
 
@@ -84,7 +84,7 @@ void setupInput()
     // nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
   }
   dashButtonComponent1.setup(DASH_BUTTON_1, &inputState.leftButtonPressed);
-  // dashButtonComponent2.setup(1, DASH_BUTTON_2, inputState);
+  dashButtonComponent2.setup(DASH_BUTTON_2, &inputState.rightButtonPressed);
 
 }
 void setupLogic()
@@ -121,14 +121,18 @@ void updateInput()
     // nfcComponents[i].update();
   }
   dashButtonComponent1.update();
-  // dashButtonComponent2.update();
+  dashButtonComponent2.update();
 }
 void updateLogic()
 {
   gameManager.update();
 
   if (inputState.leftButtonPressed == true) {
-    Serial.print("LEFT PRESSED");
+    Serial.println("LEFT PRESSED");
+  }
+
+  if (inputState.rightButtonPressed == true) {
+    Serial.println("RIGHT PRESSED");
   }
 }
 
