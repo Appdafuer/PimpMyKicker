@@ -12,8 +12,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/Users/michael/Git/PimpMyKicker/arduino/.pio/build/megaatmega2560/firmware.elf",
-            "toolchainBinDir": "/Users/michael/.platformio/packages/toolchain-atmelavr/bin",
+            "executable": "/Users/michaelkugler/GIT/PimpMyKicker/arduino/.pio/build/megaatmega2560/firmware.elf",
+            "toolchainBinDir": "/Users/michaelkugler/.platformio/packages/toolchain-atmelavr/bin",
             "preLaunchTask": {
                 "type": "PlatformIO",
                 "task": "Pre-Debug"
@@ -24,8 +24,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/Users/michael/Git/PimpMyKicker/arduino/.pio/build/megaatmega2560/firmware.elf",
-            "toolchainBinDir": "/Users/michael/.platformio/packages/toolchain-atmelavr/bin",
+            "executable": "/Users/michaelkugler/GIT/PimpMyKicker/arduino/.pio/build/megaatmega2560/firmware.elf",
+            "toolchainBinDir": "/Users/michaelkugler/.platformio/packages/toolchain-atmelavr/bin",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]

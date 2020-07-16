@@ -35,6 +35,7 @@
 // #include "NFCComponent.h"
 #include "StatusLED.h"
 #include "ButtonComponent.h"
+#include "DisplayComponent.h"
 
 #define LOGGING true
 
@@ -59,6 +60,11 @@ byte statusLedPins[] = {STATUS_LED_NFC_1_PIN, STATUS_LED_NFC_2_PIN, STATUS_LED_N
 
 // NFCComponent nfcComponents[NR_OF_READERS];
 StatusLED statusLEDs[NR_OF_READERS];
+
+// DISPLAYS
+
+DisplayComponent display1;
+DisplayComponent display2;
 
 // BUTTONS
 
@@ -85,12 +91,12 @@ void setupInput()
   }
   dashButtonComponent1.setup(DASH_BUTTON_1, &inputState.leftButtonPressed);
   dashButtonComponent2.setup(DASH_BUTTON_2, &inputState.rightButtonPressed);
-
 }
+
 void setupLogic()
 {
   // still work in progress. when commented in it doesn't work!
-  gameManager.setup(inputState, gameState);
+  gameManager.setup(&inputState, &gameState);
 }
 
 void setupOutput()
@@ -99,6 +105,8 @@ void setupOutput()
   {
     statusLEDs[i].setup(i, statusLedPins[i], gameState);
   }
+  display1.setup(0, &gameState.goals1);
+  display2.setup(-1, &gameState.goals2);
 }
 
 void setup()
@@ -126,14 +134,6 @@ void updateInput()
 void updateLogic()
 {
   gameManager.update();
-
-  if (inputState.leftButtonPressed == true) {
-    Serial.println("LEFT PRESSED");
-  }
-
-  if (inputState.rightButtonPressed == true) {
-    Serial.println("RIGHT PRESSED");
-  }
 }
 
 void updateOutput()
@@ -142,6 +142,8 @@ void updateOutput()
   {
     statusLEDs[i].update();
   }
+  display1.update();
+  display2.update();
 }
 
 void loop()

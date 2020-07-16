@@ -11,12 +11,12 @@ class GameManager
 public:
     GameManager();
 
-    void setup(InputState inputState, GameState gameState);
+    void setup(InputState *inputState, GameState *gameState);
     void update();
 
 private:
-    InputState inputState;
-    GameState gameState;
+    InputState *inputState;
+    GameState *gameState;
 };
 
 #endif
