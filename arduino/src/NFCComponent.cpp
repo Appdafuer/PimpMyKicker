@@ -8,7 +8,7 @@ NFCComponent::NFCComponent()
 {
 }
 
-void NFCComponent::setup(int readerNumber, int sdaPin, int resetPin, InputState inputState)
+void NFCComponent::setup(int readerNumber, int sdaPin, int resetPin, InputState *inputState)
 {
     this->readerNumber = readerNumber;
     this->sdaPin = sdaPin;
@@ -35,19 +35,21 @@ void NFCComponent::update()
         dump_byte_array(reader.uid.uidByte, reader.uid.size);
         Serial.println();
 
+        inputState->newPlayerFound = true;
+
         switch (readerNumber)
         {
         case 1:
-            memcpy(inputState.nfcId1, reader.uid.uidByte, reader.uid.size);
+            memcpy(inputState->nfcId1, reader.uid.uidByte, reader.uid.size);
             break;
         case 2:
-            memcpy(inputState.nfcId2, reader.uid.uidByte, reader.uid.size);
+            memcpy(inputState->nfcId2, reader.uid.uidByte, reader.uid.size);
             break;
         case 3:
-            memcpy(inputState.nfcId3, reader.uid.uidByte, reader.uid.size);
+            memcpy(inputState->nfcId3, reader.uid.uidByte, reader.uid.size);
             break;
         case 4:
-            memcpy(inputState.nfcId4, reader.uid.uidByte, reader.uid.size);
+            memcpy(inputState->nfcId4, reader.uid.uidByte, reader.uid.size);
             break;
         default:
             break;
@@ -61,20 +63,20 @@ void NFCComponent::update()
     else
     {
         // todo create inputState Array for nfc ids
-        byte noAdress[10] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        byte noAdress[4] = {0x00, 0x00, 0x00, 0x00};
         switch (readerNumber)
         {
         case 1:
-            memcpy(inputState.nfcId1, noAdress, reader.uid.size);
+            memcpy(inputState->nfcId1, noAdress, reader.uid.size);
             break;
         case 2:
-            memcpy(inputState.nfcId2, noAdress, reader.uid.size);
+            memcpy(inputState->nfcId2, noAdress, reader.uid.size);
             break;
         case 3:
-            memcpy(inputState.nfcId3, noAdress, reader.uid.size);
+            memcpy(inputState->nfcId3, noAdress, reader.uid.size);
             break;
         case 4:
-            memcpy(inputState.nfcId4, noAdress, reader.uid.size);
+            memcpy(inputState->nfcId4, noAdress, reader.uid.size);
             break;
         default:
             break;

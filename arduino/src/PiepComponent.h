@@ -16,7 +16,7 @@ public:
 private:
     int pin;
     bool *piep;
-    int millisStarted;
+    long millisStarted;
 };
 
 #endif

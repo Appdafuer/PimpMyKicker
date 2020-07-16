@@ -15,6 +15,11 @@ public:
 
     bool leftButtonPressed;
     bool rightButtonPressed;
+
+    bool newPlayerFound;
+
+    InputState();
+    void reset();
 };
 
 #endif

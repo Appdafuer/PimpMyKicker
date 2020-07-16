@@ -93,7 +93,7 @@ void setupInput()
 {
   for (int i = 0; i < NR_OF_READERS; i++)
   {
-    nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
+    nfcComponents[i].setup(i, ssPins[i], RST_PIN, &inputState);
   }
   dashButtonComponent1.setup(DASH_BUTTON_1, &inputState.leftButtonPressed);
   dashButtonComponent2.setup(DASH_BUTTON_2, &inputState.rightButtonPressed);
@@ -113,7 +113,7 @@ void setupOutput()
   }
   display1.setup(0, &gameState.goals1);
   display2.setup(1, &gameState.goals2);
-  pieper.setup(PIEPER_PIN, &inputState.leftButtonPressed); // Todo: Any player id changed
+  pieper.setup(PIEPER_PIN, &inputState.newPlayerFound);
 }
 
 void setup()
@@ -136,6 +136,7 @@ void setup()
 
 void updateInput()
 {
+  inputState.reset();
   for (int i = 0; i < NR_OF_READERS; i++)
   {
     nfcComponents[i].update();

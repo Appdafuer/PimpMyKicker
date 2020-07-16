@@ -16,7 +16,7 @@ void PiepComponent::setup(int pin, bool *piep)
 
 void PiepComponent::update()
 {
-    int now = millis();
+    long now = millis();
 
     if (*piep)
     {

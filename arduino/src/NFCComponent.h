@@ -11,11 +11,11 @@ class NFCComponent
 public:
     NFCComponent();
 
-    void setup(int readerNumber, int sdaPin, int resetPin, InputState inputState);
+    void setup(int readerNumber, int sdaPin, int resetPin, InputState *inputState);
     void update();
 
 private:
-    InputState inputState;
+    InputState *inputState;
     int readerNumber;
     int sdaPin;
     int resetPin;
