@@ -7,11 +7,10 @@ class InputState
 {
 
 public:
-    // TODO: create array of ids
-    byte nfcId1[10];
-    byte nfcId2[10];
-    byte nfcId3[10];
-    byte nfcId4[10];
+    byte nfcId1[4];
+    byte nfcId2[4];
+    byte nfcId3[4];
+    byte nfcId4[4];
 
     bool leftButtonPressed;
     bool rightButtonPressed;

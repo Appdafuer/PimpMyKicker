@@ -5,11 +5,12 @@ GameState::GameState()
     this->goals1 = 0;
     this->goals2 = 0;
 
-    // TODO: create array
-    this->player1Available = false;
-    this->player2Available = false;
-    this->player3Available = false;
-    this->player4Available = false;
+    byte noAdress[4] = {0x00, 0x00, 0x00, 0x00};
+
+    memcpy(this->playerId1, noAdress, 4);
+    memcpy(this->playerId2, noAdress, 4);
+    memcpy(this->playerId3, noAdress, 4);
+    memcpy(this->playerId4, noAdress, 4);
 }
 
 void GameState::startNewGame()
@@ -17,10 +18,12 @@ void GameState::startNewGame()
     //update result to firebase
 
     //setting players available to false
-    this->player1Available = false;
-    this->player2Available = false;
-    this->player3Available = false;
-    this->player4Available = false;
+    byte noAdress[4] = {0x00, 0x00, 0x00, 0x00};
+
+    memcpy(this->playerId1, noAdress, 4);
+    memcpy(this->playerId2, noAdress, 4);
+    memcpy(this->playerId3, noAdress, 4);
+    memcpy(this->playerId4, noAdress, 4);
 
     this->gameFinished = false;
 

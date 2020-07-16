@@ -35,8 +35,6 @@ void NFCComponent::update()
         dump_byte_array(reader.uid.uidByte, reader.uid.size);
         Serial.println();
 
-        inputState->newPlayerFound = true;
-
         switch (readerNumber)
         {
         case 1:

@@ -37,6 +37,7 @@
 #include "ButtonComponent.h"
 #include "DisplayComponent.h"
 #include "PiepComponent.h"
+#include "OutputState.h"
 
 #define LOGGING true
 
@@ -88,6 +89,7 @@ ButtonComponent dashButtonComponent2;
 InputState inputState;
 GameManager gameManager;
 GameState gameState;
+OutputState outputState;
 
 void setupInput()
 {
@@ -101,8 +103,7 @@ void setupInput()
 
 void setupLogic()
 {
-  // still work in progress. when commented in it doesn't work!
-  gameManager.setup(&inputState, &gameState);
+  gameManager.setup(&inputState, &gameState, &outputState);
 }
 
 void setupOutput()
@@ -113,7 +114,7 @@ void setupOutput()
   }
   display1.setup(0, &gameState.goals1);
   display2.setup(1, &gameState.goals2);
-  pieper.setup(PIEPER_PIN, &inputState.newPlayerFound);
+  pieper.setup(PIEPER_PIN, &outputState.peep);
 }
 
 void setup()
@@ -158,6 +159,7 @@ void updateOutput()
   display1.update();
   display2.update();
   pieper.update();
+  outputState.reset();
 }
 
 void loop()

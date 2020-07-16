@@ -11,17 +11,6 @@ void StatusLED::setup(int readerNumber, int pin, GameState gameState)
     pinMode(pin, OUTPUT);
 };
 
-void StatusLED::update()
-{
-    if (readerNumber == 2)
-    {
-        if (gameState.player2Available == true)
-        {
-            digitalWrite(pin, HIGH);
-        }
-        else
-        {
-            digitalWrite(pin, LOW);
-        }
-    }
+void StatusLED::update(){
+
 };
