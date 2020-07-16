@@ -36,6 +36,7 @@
 #include "StatusLED.h"
 #include "ButtonComponent.h"
 #include "DisplayComponent.h"
+#include "PiepComponent.h"
 
 #define LOGGING true
 
@@ -55,6 +56,8 @@
 #define STATUS_LED_NFC_3_PIN 11
 #define STATUS_LED_NFC_4_PIN 12
 
+#define PIEPER_PIN 14
+
 byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN, SS_4_PIN};
 byte statusLedPins[] = {STATUS_LED_NFC_1_PIN, STATUS_LED_NFC_2_PIN, STATUS_LED_NFC_3_PIN, STATUS_LED_NFC_4_PIN};
 
@@ -66,13 +69,16 @@ StatusLED statusLEDs[NR_OF_READERS];
 DisplayComponent display1;
 DisplayComponent display2;
 
+// PIEPER
+PiepComponent pieper;
+
 // BUTTONS
 
 #define DASH_BUTTON_1 9
-#define LED_DASH_BUTTON_1 38
+#define LED_DASH_BUTTON_1 38 // HIGH IS ON
 
 #define DASH_BUTTON_2 10
-#define LED_DASH_BUTTON_2 39
+#define LED_DASH_BUTTON_2 39 // LOW IS ON
 
 ButtonComponent dashButtonComponent1;
 ButtonComponent dashButtonComponent2;
@@ -107,6 +113,7 @@ void setupOutput()
   }
   display1.setup(0, &gameState.goals1);
   display2.setup(1, &gameState.goals2);
+  pieper.setup(PIEPER_PIN, &inputState.leftButtonPressed); // Todo: Any player id changed
 }
 
 void setup()
@@ -116,6 +123,11 @@ void setup()
     ; // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
 
   SPI.begin(); // Init SPI bus
+
+  pinMode(LED_DASH_BUTTON_1, OUTPUT);
+  pinMode(LED_DASH_BUTTON_2, OUTPUT);
+  digitalWrite(LED_DASH_BUTTON_1, HIGH);
+  digitalWrite(LED_DASH_BUTTON_2, LOW);
 
   setupInput();
   setupLogic();
@@ -144,6 +156,7 @@ void updateOutput()
   }
   display1.update();
   display2.update();
+  pieper.update();
 }
 
 void loop()
