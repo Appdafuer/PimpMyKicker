@@ -29,16 +29,31 @@ void GameManager::update()
 
     if (inputState->leftButtonPressed == true)
     {
-        Serial.println("LEFT PRESSED");
-        gameState->goals1++;
-        Serial.println(gameState->goals1);
+        if (gameState->gameFinished == true)
+        {
+            gameState->startNewGame();
+        }
+        else
+        {
+            gameState->goals1++;
+        }
     }
 
     if (inputState->rightButtonPressed == true)
     {
-        Serial.println("RIGHT PRESSED");
-        gameState->goals2++;
-        Serial.println(gameState->goals2);
+        if (gameState->gameFinished == true)
+        {
+            gameState->startNewGame();
+        }
+        else
+        {
+            gameState->goals2++;
+        }
     }
 
+    //check if game is finished
+    if (gameState->goals1 >= 6 || gameState->goals2 >= 6)
+    {
+        gameState->gameFinished = true;
+    }
 };

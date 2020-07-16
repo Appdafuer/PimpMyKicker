@@ -13,7 +13,11 @@ public:
     bool player2Available;
     bool player3Available;
     bool player4Available;
+
+    bool gameFinished;
+
     GameState();
+    void startNewGame();
 };
 
 #endif

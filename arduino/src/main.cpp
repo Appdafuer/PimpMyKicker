@@ -28,11 +28,11 @@
 
 */
 
-// #include <SPI.h>
+#include <SPI.h>
 #include "InputState.h"
 #include "GameState.h"
 #include "GameManager.h"
-// #include "NFCComponent.h"
+#include "NFCComponent.h"
 #include "StatusLED.h"
 #include "ButtonComponent.h"
 #include "DisplayComponent.h"
@@ -45,10 +45,10 @@
 
 // PIN Numbers : RESET + SDAs
 #define RST_PIN 49
-#define SS_1_PIN 42
-#define SS_2_PIN 44
-#define SS_3_PIN 46
-#define SS_4_PIN 40
+#define SS_1_PIN 46 //schwarz Abwehr
+#define SS_2_PIN 42 //schwarz Sturm
+#define SS_3_PIN 40 //weiß Sturm
+#define SS_4_PIN 44 //weiß Abwehr
 
 #define STATUS_LED_NFC_1_PIN 9
 #define STATUS_LED_NFC_2_PIN 10
@@ -58,7 +58,7 @@
 byte ssPins[] = {SS_1_PIN, SS_2_PIN, SS_3_PIN, SS_4_PIN};
 byte statusLedPins[] = {STATUS_LED_NFC_1_PIN, STATUS_LED_NFC_2_PIN, STATUS_LED_NFC_3_PIN, STATUS_LED_NFC_4_PIN};
 
-// NFCComponent nfcComponents[NR_OF_READERS];
+NFCComponent nfcComponents[NR_OF_READERS];
 StatusLED statusLEDs[NR_OF_READERS];
 
 // DISPLAYS
@@ -87,7 +87,7 @@ void setupInput()
 {
   for (int i = 0; i < NR_OF_READERS; i++)
   {
-    // nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
+    nfcComponents[i].setup(i, ssPins[i], RST_PIN, inputState);
   }
   dashButtonComponent1.setup(DASH_BUTTON_1, &inputState.leftButtonPressed);
   dashButtonComponent2.setup(DASH_BUTTON_2, &inputState.rightButtonPressed);
@@ -106,7 +106,7 @@ void setupOutput()
     statusLEDs[i].setup(i, statusLedPins[i], gameState);
   }
   display1.setup(0, &gameState.goals1);
-  display2.setup(-1, &gameState.goals2);
+  display2.setup(1, &gameState.goals2);
 }
 
 void setup()
@@ -126,7 +126,7 @@ void updateInput()
 {
   for (int i = 0; i < NR_OF_READERS; i++)
   {
-    // nfcComponents[i].update();
+    nfcComponents[i].update();
   }
   dashButtonComponent1.update();
   dashButtonComponent2.update();
